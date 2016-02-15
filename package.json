@@ -1,0 +1,25 @@
+{
+  "name": "masonry-layout-engine",
+  "version": "0.1.0",
+  "description": "Calculating masonry layouts based on rectangles",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jchn/masonry-layout-engine.git"
+  },
+  "keywords": [
+    "masonry"
+  ],
+  "author": "john.vd.water85@gmail.com (http://jchn.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jchn/masonry-layout-engine/issues"
+  },
+  "homepage": "https://github.com/jchn/masonry-layout-engine#readme"
+}

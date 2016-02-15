@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Masonry Layout example</title>
+  <script type="text/javascript" src="../lib/engine.js"></script>
+
+  <style type="text/css">
+    .container {
+      width: 980px;
+      margin: auto;
+      position: relative;
+    }
+
+    .block {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid blue;
+    }
+
+    img {
+      width: 100%;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="600" data-height="900" class="block"><img src="http://placehold.it/600x900"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="300" data-height="900" class="block"><img src="http://placehold.it/300x900"/></div>
+    <div data-width="500" data-height="1000" class="block"><img src="http://placehold.it/500x1000"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+    <div data-width="600" data-height="1080" class="block"><img src="http://placehold.it/600x1080"/></div>
+    <div data-width="800" data-height="1600" class="block"><img src="http://placehold.it/800x1600"/></div>
+    <div data-width="250" data-height="700" class="block"><img src="http://placehold.it/250x700"/></div>
+    <div data-width="350" data-height="500" class="block"><img src="http://placehold.it/350x500"/></div>
+
+  </div>
+
+  <script type="text/javascript">
+    console.log('test')
+
+    var $$ = document.querySelectorAll.bind(document)
+    var $ = document.querySelector.bind(document)
+
+    var DOMElements = Array.prototype.slice.call($$('.block'))
+
+    var rectangles = DOMElements.map(function (el) {
+      return {
+        width: parseInt(el.dataset.width),
+        height: parseInt(el.dataset.height)
+      }
+    })
+
+    var container = $('.container')
+
+    var rectangles = LayoutEngine.generateRectangles(rectangles, 3, container.getBoundingClientRect().width)
+
+    function toDOMTranslation (rectangle, i) {
+      var element = DOMElements[i]
+      element.style.transform = 'translate(' + rectangle.x + 'px, ' + rectangle.y + 'px)'
+      element.style.width = rectangle.width + 'px'
+      element.style.height = rectangle.height + 'px'
+    }
+
+    rectangles.map(toDOMTranslation)
+
+  </script>
+
+</body>
+</html>
