@@ -5,6 +5,12 @@
   <script type="text/javascript" src="../lib/engine.js"></script>
 
   <style type="text/css">
+
+    h1, p {
+      max-width: 980px;
+      margin: auto;
+    }
+
     .container {
       max-width: 980px;
       margin: auto;
@@ -23,7 +29,6 @@
 
     img {
       width: 100%;
-      opacity: 0;
       animation: fadeIn 1s forwards;
     }
 
@@ -40,6 +45,10 @@
   </style>
 </head>
 <body>
+
+  <h1>Simple example</h1>
+
+  <p>Check the source for details.</p>
 
   <div class="container">
 
@@ -157,7 +166,8 @@
 
     var DOMElements = Array.prototype.slice.call($$('.block'))
 
-    var rectangles = DOMElements.map(function (el) {
+    // First, let's get some dimensions to feed our LayoutEngine
+    var dimensions = DOMElements.map(function (el) {
       return {
         width: parseInt(el.dataset.width),
         height: parseInt(el.dataset.height)
@@ -166,8 +176,15 @@
 
     var container = $('.container')
 
-    var rectangles = LayoutEngine.generateRectangles(rectangles, 5, container.getBoundingClientRect().width, 5)
+    // Generate rectangles based on: 
+    // - the dimensions we figured out earlier
+    // - number of columns we want to display
+    // - width of container the columns should be in
+    // - and the width of the gutters in between our rectangles (defaults to 0)
+    var rectangles = LayoutEngine.generateRectangles(dimensions, 5, container.getBoundingClientRect().width, 15)
 
+    // Transform the rectangle data to the thing we want to display
+    // In this case DOM elements
     function toDOMTranslation (rectangle, i) {
       var element = DOMElements[i]
       element.style.transform = 'translate(' + rectangle.x + 'px, ' + rectangle.y + 'px)'
@@ -177,22 +194,25 @@
 
     rectangles.map(toDOMTranslation)
 
+    // Do the same trick on resize
+    // This part can be optimized, but you get the idea :)
     window.addEventListener('resize', function () {
 
       var container = $('.container')
 
       var DOMElements = Array.prototype.slice.call($$('.block'))
 
-      var rectangles = DOMElements.map(function (el) {
+      var dimensions = DOMElements.map(function (el) {
         return {
           width: parseInt(el.dataset.width),
           height: parseInt(el.dataset.height)
         }
       })
 
+      // Set number of columns based on mediaquery
       var numColumns = window.matchMedia('(min-width: 800px)').matches ? 5 : 2
 
-      var rectangles = LayoutEngine.generateRectangles(rectangles, numColumns, container.getBoundingClientRect().width, 5)
+      var rectangles = LayoutEngine.generateRectangles(dimensions, numColumns, container.getBoundingClientRect().width, 15)
       rectangles.map(toDOMTranslation)
     })
 

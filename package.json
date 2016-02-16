@@ -1,25 +1,33 @@
 {
-  "name": "masonry-layout-engine",
+  "name": "simple-masonry-layout",
   "version": "0.1.0",
-  "description": "Calculating masonry layouts based on rectangles",
+  "description": "Calculating masonry layouts based on rectangles, without being tied to the DOM.",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "lib": "lib",
+    "examples": "examples"
   },
   "scripts": {
-    "test": "npm run test"
+    "test": "node ./test/."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jchn/masonry-layout-engine.git"
+    "url": "git+https://github.com/awkward/simple-masonry-layout.git"
   },
   "keywords": [
-    "masonry"
+    "masonry",
+    "layout",
+    "grid"
   ],
-  "author": "john.vd.water85@gmail.com (http://jchn.github.io/)",
+  "author": {
+    "name": "John van de Water",
+    "email": "john@madeawkward.com",
+    "url": "http://github.com/jchn"
+  }, 
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jchn/masonry-layout-engine/issues"
+    "url": "https://github.com/awkward/simple-masonry-layout/issues"
   },
-  "homepage": "https://github.com/jchn/masonry-layout-engine#readme"
+  "homepage": "https://github.com/awkward/simple-masonry-layout#readme"
 }
