@@ -18,7 +18,7 @@
       border: 1px solid blue;
       box-sizing: border-box;
 
-      transition: transform 1s;
+      transition: transform 0.2s;
     }
 
     img {
@@ -166,7 +166,7 @@
 
     var container = $('.container')
 
-    var rectangles = LayoutEngine.generateRectangles(rectangles, 3, container.getBoundingClientRect().width, 40)
+    var rectangles = LayoutEngine.generateRectangles(rectangles, 5, container.getBoundingClientRect().width, 5)
 
     function toDOMTranslation (rectangle, i) {
       var element = DOMElements[i]
@@ -190,7 +190,9 @@
         }
       })
 
-      var rectangles = LayoutEngine.generateRectangles(rectangles, 3, container.getBoundingClientRect().width, 40)
+      var numColumns = window.matchMedia('(min-width: 800px)').matches ? 5 : 2
+
+      var rectangles = LayoutEngine.generateRectangles(rectangles, numColumns, container.getBoundingClientRect().width, 5)
       rectangles.map(toDOMTranslation)
     })
 
