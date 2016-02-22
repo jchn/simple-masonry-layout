@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awkward/simple-masonry-layout.git"
+    "url": "git+https://github.com/jchn/simple-masonry-layout.git"
   },
   "keywords": [
     "masonry",
@@ -22,12 +22,12 @@
   ],
   "author": {
     "name": "John van de Water",
-    "email": "john@madeawkward.com",
+    "email": "john.vd.water85@gmail.com",
     "url": "http://github.com/jchn"
   }, 
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/awkward/simple-masonry-layout/issues"
+    "url": "https://github.com/jchn/simple-masonry-layout/issues"
   },
-  "homepage": "https://github.com/awkward/simple-masonry-layout#readme"
+  "homepage": "https://github.com/jchn/simple-masonry-layout#readme"
 }
