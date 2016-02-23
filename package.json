@@ -9,7 +9,7 @@
     "examples": "examples"
   },
   "scripts": {
-    "test": "node ./test/."
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -24,10 +24,23 @@
     "name": "John van de Water",
     "email": "john.vd.water85@gmail.com",
     "url": "http://github.com/jchn"
-  }, 
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jchn/simple-masonry-layout/issues"
   },
-  "homepage": "https://github.com/jchn/simple-masonry-layout#readme"
+  "homepage": "https://github.com/jchn/simple-masonry-layout#readme",
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "failFast": true,
+    "tap": true,
+    "require": [
+      "babel-register"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.12.0"
+  }
 }
