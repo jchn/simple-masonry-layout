@@ -1,4 +1,4 @@
-# simple-masonry-layout
+# simple-masonry-layout [![Build Status](https://travis-ci.org/jchn/simple-masonry-layout.svg?branch=master)](https://travis-ci.org/jchn/simple-masonry-layout)
 Calculating masonry layouts based on rectangles, without being tied to the DOM.
 
 ## Installation
