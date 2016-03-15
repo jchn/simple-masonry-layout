@@ -9,7 +9,12 @@ test('layout order should be maintained when dimensions are the same', (t) => {
     dimensions.push({ width: 500, height: 500, order: i })
   }
 
-  const rectangles = LayoutEngine.generateRectangles(dimensions, 5, 2500, 0)
+  const rectangles = LayoutEngine.generateRectangles({
+    dimensions: dimensions, 
+    columns: 5, 
+    width: 2500, 
+    gutter: 0
+  })
 
   const expectedPattern = []
   for (let i = 0; i < 20; i++) {
@@ -35,7 +40,14 @@ test('x and y gutter should be configured separately', (t) => {
     dimensions.push({ width: 500, height: 500 })
   }
 
-  const rectangles = LayoutEngine.generateRectangles(dimensions, 5, 2600, 0, gutterX, gutterY)
+  const rectangles = LayoutEngine.generateRectangles({
+    dimensions: dimensions, 
+    columns: 5, 
+    width: 2600, 
+    gutter: 0, 
+    gutterX: gutterX, 
+    gutterY: gutterY
+  })
 
   const expectedPattern = []
 
