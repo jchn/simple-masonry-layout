@@ -1,5 +1,5 @@
 import test from 'ava'
-import LayoutEngine from '../lib/engine'
+import LayoutEngine from '../lib/simple-masonry'
 
 test('layout order should be maintained when dimensions are the same', (t) => {
 
@@ -29,7 +29,7 @@ test('layout order should be maintained when dimensions are the same', (t) => {
   t.same(returnedPattern, expectedPattern)
 })
 
-test('x and y gutter should be configured separately', (t) => {
+test('x and y gutter should be separately configurable', (t) => {
 
   const dimensions = []
 
