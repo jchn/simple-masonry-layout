@@ -1,6 +1,6 @@
 {
   "name": "simple-masonry-layout",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Calculating masonry layouts based on rectangles, without being tied to the DOM.",
   "main": "index.js",
   "directories": {
