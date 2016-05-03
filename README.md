@@ -71,6 +71,10 @@ The vertical gutter between elements.
 
 The horizontal gutter between elements.
 
+#### maxHeight - number (default: 0 - inactive)
+
+The maximum height of each element.
+
 ## Code example
 
   ```
