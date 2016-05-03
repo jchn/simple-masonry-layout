@@ -69,27 +69,6 @@ test('x and y gutter should be separately configurable', (t) => {
   t.same(returnedPattern, expectedPattern)
 })
 
-test('max width should be configurable', (t) => {
-
-  const dimensions = []
-
-  const maxWidth = 800
-  const width = 8000
-
-  for (let i = 0; i < 20; i++) {
-    dimensions.push({ width: 2500, height: 2500 })
-  }
-
-  const rectangles = LayoutEngine.generateRectangles({
-    dimensions,
-    maxWidth,
-    width
-  })
-
-  t.true(rectangles.every(r => r.width <= maxWidth))
-
-})
-
 test('max height should be configurable', (t) => {
 
   const dimensions = []
