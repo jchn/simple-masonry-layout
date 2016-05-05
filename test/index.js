@@ -1,6 +1,13 @@
 import test from 'ava'
 import LayoutEngine from '../lib/simple-masonry'
 
+function extractDimensions (rectangle) {
+  return {
+    width: rectangle.width,
+    height: rectangle.height
+  }
+}
+
 test('layout order should be maintained when dimensions are the same', (t) => {
 
   const dimensions = []
@@ -26,7 +33,7 @@ test('layout order should be maintained when dimensions are the same', (t) => {
 
   const returnedPattern = rectangles.map(rectangle => ({ x: rectangle.x, y: rectangle.y }))
 
-  t.same(returnedPattern, expectedPattern)
+  t.deepEqual(returnedPattern, expectedPattern)
 })
 
 test('x and y gutter should be separately configurable', (t) => {
@@ -87,5 +94,84 @@ test('max height should be configurable', (t) => {
   })
 
   t.true(rectangles.every(r => r.height <= maxHeight))
+
+})
+
+test('collapsing should be optional', (t) => {
+
+  const dimensions = []
+
+  const collapsing = true
+
+  for (let i = 0; i < 20; i++) {
+    dimensions.push({ width: (Math.random() * 100 + 100), height: (Math.random() * 100 + 100) })
+  }
+
+  const rectangles1 = LayoutEngine.generateRectangles({
+    dimensions,
+    collapsing: true
+  })
+
+  const rectangles2 = LayoutEngine.generateRectangles({
+    dimensions,
+    collapsing: false
+  })
+
+  t.notDeepEqual(rectangles1, rectangles2)
+
+})
+
+test('layout order should be maintained when collapsing is turned off', (t) => {
+
+  const dimensions = []
+  const columns = 5
+  const width = 1000
+  const collapsing = true
+  const gutter = 0
+
+  for (let i = 1; i < 20; i++) {
+    dimensions.push({ width: i * 50 + 100, height: (i * 50 + 100) + i % 3 * 50})
+  }
+
+  // we expect to get back the scaled dimensions in the same order as they were entered
+  const expectedPattern = dimensions
+    .map(LayoutEngine.__scaleRectangles(columns, width, gutter, 0))
+    .map(extractDimensions)
+
+  const returnedPattern = LayoutEngine.generateRectangles({
+    dimensions,
+    collapsing,
+    gutter,
+    width,
+    columns
+  })
+
+  // sort the returned values by x, y coordinates (left to right, top to bottom)
+  // if the order IS maintained, before and after sorting should remain the same (if collapsing is disabled)
+  // if the order IS NOT maintained, before and after sorting could differ
+  const controlPattern = returnedPattern
+    .sort((rectangle1, rectangle2) => {
+      if (rectangle1.y < rectangle2.y) {
+        return -1
+      }
+
+      if (rectangle1.y > rectangle2.y) {
+        return 1
+      }
+
+      if (rectangle1.x < rectangle2.x) {
+        return -1
+      }
+
+      if (rectangle1.x > rectangle2.x) {
+        return 1
+      }
+
+      return 0
+    })
+    .map(extractDimensions)
+
+  // If order is maintained, these two values should be identical
+  t.deepEqual(expectedPattern, controlPattern)
 
 })

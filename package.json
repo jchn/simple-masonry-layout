@@ -1,6 +1,6 @@
 {
   "name": "simple-masonry-layout",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Calculating masonry layouts based on rectangles, without being tied to the DOM.",
   "main": "index.js",
   "directories": {
@@ -41,6 +41,6 @@
     ]
   },
   "devDependencies": {
-    "ava": "^0.12.0"
+    "ava": "^0.14.0"
   }
 }

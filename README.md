@@ -75,6 +75,10 @@ The horizontal gutter between elements.
 
 The maximum height of each element.
 
+#### collapsing - boolean (default: true)
+
+If the rectangles should collapse into each other.
+
 ## Code example
 
   ```
