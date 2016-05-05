@@ -185,9 +185,10 @@
     // - and the width of the gutters in between our rectangles (defaults to 0)
     var rectangles = LayoutEngine.generateRectangles({
       dimensions: dimensions, 
-      columns: 25, 
+      columns: 10, 
       width: container.getBoundingClientRect().width, 
-      gutter: 15
+      gutter: 15,
+      collapsing: false
     })
 
     // Transform the rectangle data to the thing we want to display
@@ -223,11 +224,11 @@
         dimensions: dimensions, 
         columns: numColumns, 
         width: container.getBoundingClientRect().width, 
-        gutter: 15
+        gutter: 15,
+        collapsing: true
       })
       rectangles.map(toDOMTranslation)
     })
-
 
   </script>
 
