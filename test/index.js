@@ -40,40 +40,39 @@ test('x and y gutter should be separately configurable', (t) => {
 
   const dimensions = []
 
-  const gutterX = 20
-  const gutterY = 50
+  const gutterX = 50
+  const gutterY = 30
 
-  for (let i = 0; i < 20; i++) {
-    dimensions.push({ width: 500, height: 500 })
-  }
+  dimensions.push({ width: 800 , height: 800 })
+  dimensions.push({ width: 800 , height: 800 })
+  dimensions.push({ width: 800 , height: 800 })
+  dimensions.push({ width: 800 , height: 800 })
 
   const rectangles = LayoutEngine.generateRectangles({
     dimensions: dimensions, 
-    columns: 5, 
-    width: 2600, 
-    gutter: 0, 
+    columns: 2, 
+    width: 800,
     gutterX: gutterX, 
     gutterY: gutterY
   })
 
-  const expectedPattern = []
-
-  for (let i = 0; i < 20; i++) {
-
-    const x = (i * 500 % 2500) + (i % 5 * gutterX)
-    let y = ((Math.floor(i / 5)) * 500)
-
-    if (y) y += gutterY * Math.floor(i / 5)
-
-    expectedPattern.push({
-      x: x,
-      y: y
-    })
-  }
+  const expectedPattern = [{
+    x: 0,
+    y: 0
+  }, {
+    x: 425,
+    y: 0
+  }, {
+    x: 0,
+    y: 405
+  }, {
+    x: 425,
+    y: 405
+  }]
 
   const returnedPattern = rectangles.map(rectangle => ({ x: rectangle.x, y: rectangle.y }))
 
-  t.same(returnedPattern, expectedPattern)
+  t.deepEqual(returnedPattern, expectedPattern)
 })
 
 test('max height should be configurable', (t) => {
