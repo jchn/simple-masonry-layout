@@ -205,8 +205,6 @@ test('the centering option should center the colums when there are less blocks t
     centering
   })
 
-  console.log(JSON.stringify(returnedPattern, null, 2))
-
   t.deepEqual(expectedPattern, returnedPattern)
 
 })
