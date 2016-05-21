@@ -174,3 +174,39 @@ test('layout order should be maintained when collapsing is turned off', (t) => {
   t.deepEqual(expectedPattern, controlPattern)
 
 })
+
+test('the centering option should center the colums when there are less blocks than number of columns', (t) => {
+
+  let dimensions = []
+  const columns = 3
+  const width = 600
+  const gutter = 0
+  const centering = true
+
+  const expectedPattern = [{
+    x: 100,
+    y: 0,
+    width: 200,
+    height: 200
+  }, {
+    x: 300,
+    y: 0,
+    width: 200,
+    height: 200
+  }]
+
+  dimensions = expectedPattern.map(extractDimensions)
+
+  const returnedPattern = LayoutEngine.generateRectangles({
+    dimensions,
+    gutter,
+    width,
+    columns,
+    centering
+  })
+
+  console.log(JSON.stringify(returnedPattern, null, 2))
+
+  t.deepEqual(expectedPattern, returnedPattern)
+
+})
