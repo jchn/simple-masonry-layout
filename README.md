@@ -71,13 +71,17 @@ The vertical gutter between elements.
 
 The horizontal gutter between elements.
 
-#### maxHeight - number (default: 0 - inactive)
+##### maxHeight - number (default: 0 - inactive)
 
 The maximum height of each element.
 
-#### collapsing - boolean (default: true)
+##### collapsing - boolean (default: true)
 
 If the rectangles should collapse into each other.
+
+##### centering - boolean (default: false)
+
+If number of columns is greater than number of rectangles, center the rectangles horizontally.
 
 ## Code example
 
