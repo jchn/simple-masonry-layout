@@ -208,3 +208,39 @@ test('the centering option should center the colums when there are less blocks t
   t.deepEqual(expectedPattern, returnedPattern)
 
 })
+
+test('the customize option callback should be provided with the original options', (t) => {
+
+  const dimensions = [{ width: 50, height: 50 }, { width: 20, height: 20 }]
+  const columns = 3
+  const width = 600
+  const gutterX = 20
+  const gutterY = 20
+  const gutter = 20
+  const centering = false
+  const maxHeight = 500
+  const collapsing = true
+
+  const customize = (rectangle, i, allRectangles, options) => {
+    returnedOptions = options
+    return rectangle
+  }
+
+  var returnedOptions = {}
+  const expectedOptions = { dimensions, gutter, gutterX, gutterY, width, columns, customize, maxHeight, collapsing, centering }
+
+  const returnedPattern = LayoutEngine.generateRectangles({
+    dimensions,
+    gutter,
+    gutterX,
+    gutterY,
+    width,
+    columns,
+    customize,
+    maxHeight,
+    collapsing, 
+    centering
+  })
+
+  t.deepEqual(expectedOptions, returnedOptions)
+})

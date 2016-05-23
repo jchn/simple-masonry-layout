@@ -81,6 +81,17 @@ If the rectangles should collapse into each other.
 
 ##### centering - boolean (default: false)
 
+##### customize - function (default: (r) => r)
+
+A function to customize the dimensions before they get positioned, simpleMasonry will map over this function.
+It should return the rectangle.
+
+It receives the following arguments:
+  - `rectangle` the current rectangle
+  - `i` the current index
+  - `rectangles` all rectangles
+  - `options` the original options object passed
+
 If number of columns is greater than number of rectangles, center the rectangles horizontally.
 
 ## Code example
