@@ -188,7 +188,17 @@
       columns: 10, 
       width: container.getBoundingClientRect().width, 
       gutter: 15,
-      collapsing: false
+      collapsing: true,
+      customize: function (r, i, ar, options) {
+
+        var dimension = options.dimensions[i]
+
+        if (r.width < dimension.width) {
+          r.height += 80
+        }
+
+        return r
+      }
     })
 
     // Transform the rectangle data to the thing we want to display
