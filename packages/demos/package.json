@@ -1,0 +1,12 @@
+{
+  "name": "demos",
+  "version": "0.0.1",
+  "description": "Demo's for using simple-masonry-layout",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John van de Water",
+  "license": "MIT"
+}
