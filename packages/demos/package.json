@@ -4,9 +4,7 @@
   "description": "Demo's for using simple-masonry-layout",
   "main": "index.js",
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": "John van de Water",
   "license": "MIT"
 }
