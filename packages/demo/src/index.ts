@@ -1,52 +1,6 @@
 import { generate } from "simple-masonry-layout";
-import { Rect, SimpleMasonryLayoutOptions, Size } from "simple-masonry-layout";
-// import * as cssClasses from "./style.module.css";
-
+import { Rect, SimpleMasonryLayoutOptions } from "simple-masonry-layout";
 import cssText from "bundle-text:./style.css";
-
-const urls = [
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-  new URL("./img/5.webp", import.meta.url),
-  new URL("./img/6.webp", import.meta.url),
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-  new URL("./img/5.webp", import.meta.url),
-  new URL("./img/6.webp", import.meta.url),
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-  new URL("./img/5.webp", import.meta.url),
-  new URL("./img/6.webp", import.meta.url),
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-  new URL("./img/5.webp", import.meta.url),
-  new URL("./img/6.webp", import.meta.url),
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-  new URL("./img/1.webp", import.meta.url),
-  new URL("./img/2.webp", import.meta.url),
-  new URL("./img/3.webp", import.meta.url),
-  new URL("./img/4.webp", import.meta.url),
-];
 
 let options: Omit<SimpleMasonryLayoutOptions, "sizes"> = {
   gutter: 16,
@@ -107,9 +61,7 @@ function updateGridItems(items: GridItem[]) {
     item.img.style.height = `${item.rectangle.height}px`;
   });
 
-  const scroll = document.querySelector<HTMLElement>(
-    ".masonryDemo__scrollContainer"
-  );
+  const scroll = document.querySelector<HTMLElement>(".scrollContainer");
 
   if (scroll === null) return;
 
@@ -135,33 +87,31 @@ function shuffleGrid() {
   );
 }
 
-function init(root: HTMLElement) {
+function init(root: HTMLElement, imagePaths: URL[]) {
   const style = document.createElement("style");
   style.textContent = cssText;
   const shadow = root.attachShadow({ mode: "open" });
   shadow.appendChild(style);
 
   const container = document.createElement("div");
-  container.classList.add("masonryDemo");
+  container.classList.add("demo");
   container.innerHTML =
-    '<div class="masonryDemo__container"><div class="masonryDemo__scrollContainer"></div></div>';
+    '<div class="container"><div class="scrollContainer"></div></div>';
 
   shadow.appendChild(container);
 
   // Load data
-  Promise.all(urls.map(loadImage)).then((imgs) => {
+  Promise.all(imagePaths.map(loadImage)).then((imgs) => {
     gridItems = createGridItems(options, imgs);
 
-    const scrollContainer = shadow.querySelector(
-      ".masonryDemo__scrollContainer"
-    );
+    const scrollContainer = shadow.querySelector(".scrollContainer");
 
     scrollContainer?.replaceChildren(...gridItems.map((item) => item.img));
     scrollContainer?.addEventListener("animationiteration", shuffleGrid);
 
     updateGridItems(gridItems);
 
-    root?.addEventListener("click", shuffleGrid);
+    container?.addEventListener("click", shuffleGrid);
 
     window.addEventListener("focus", () => {
       scrollContainer?.classList.remove("js-paused");
@@ -172,13 +122,5 @@ function init(root: HTMLElement) {
     });
   });
 }
-
-// Start
-
-// const container = document.querySelector<HTMLElement>("#container");
-
-// if (container) {
-//   init(container);
-// }
 
 export default once(init);

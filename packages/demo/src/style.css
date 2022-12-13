@@ -1,4 +1,4 @@
-.masonryDemo {
+.demo {
   height: 600px;
   width: 600px;
   position: relative;
@@ -7,7 +7,7 @@
   perspective: 1600px;
 }
 
-.masonryDemo img {
+.demo img {
   position: absolute;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@
   transition: all 0.8s;
 }
 
-.masonryDemo .masonryDemo__container {
+.container {
   position: relative;
   transform: rotate3d(0, -1, 0, 50deg);
 
@@ -35,7 +35,7 @@
   );
 }
 
-.masonryDemo .masonryDemo__scrollContainer {
+.scrollContainer {
   width: 600px;
   top: 0;
   right: 200px;
@@ -47,11 +47,11 @@
   animation-play-state: running;
 }
 
-.masonryDemo .masonryDemo__scrollContainer.js-paused {
+.scrollContainer.js-paused {
   animation-play-state: paused;
 }
 
-.masonryDemo:hover .masonryDemo__container {
+.demo:hover .container {
   transform: rotate3d(5, -5, 1, 0deg);
 }
 
