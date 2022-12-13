@@ -10,7 +10,23 @@ export default function Home() {
   useEffect(() => {
     console.log("effect");
     if (someRef.current) {
-      initDemo(someRef.current);
+      initDemo(someRef.current, [
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+        new URL("https://via.placeholder.com/150"),
+      ]);
     }
   }, []);
 
