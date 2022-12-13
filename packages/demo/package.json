@@ -1,0 +1,20 @@
+{
+  "name": "demo",
+  "version": "0.0.1",
+  "description": "Demo using simple-masonry-layout",
+  "main": "dist/index.js",
+  "source": "dist/index.js",
+  "private": true,
+  "devDependencies": {
+    "parcel": "^2.8.0"
+  },
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.ts"
+  },
+  "author": "John van de Water",
+  "license": "MIT",
+  "dependencies": {
+    "simple-masonry-layout": "2.0.0"
+  }
+}

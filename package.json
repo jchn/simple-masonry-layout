@@ -12,14 +12,19 @@
     "docs:dev": "npm run dev --workspace=docs",
     "docs:build": "npm run build --workspace=docs",
     "docs:start": "npm run start --workspace=docs",
-    "docs:lint": "npm run lint --workspace=docs"
+    "docs:lint": "npm run lint --workspace=docs",
+    "demo:dev": "npm run dev --workspace=demo",
+    "demo:build": "npm run build --workspace=demo"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "workspaces": [
     "packages/docs",
-    "packages/demos",
+    "packages/demo",
     "packages/simple-masonry-layout"
-  ]
+  ],
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.1"
+  }
 }

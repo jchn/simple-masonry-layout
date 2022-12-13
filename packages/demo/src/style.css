@@ -1,0 +1,66 @@
+.masonryDemo {
+  height: 600px;
+  width: 600px;
+  position: relative;
+
+  --scroll-offset: 0;
+  perspective: 1600px;
+}
+
+.masonryDemo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: drop-shadow(0px 10px 4px #bfbfbfbf);
+  transition: all 0.8s;
+}
+
+.masonryDemo .masonryDemo__container {
+  position: relative;
+  transform: rotate3d(0, -1, 0, 50deg);
+
+  overflow: hidden;
+  height: 600px;
+  right: 0px;
+
+  transition: all 1s;
+  transform-origin: top center;
+
+  mask-image: linear-gradient(
+    0deg,
+    transparent 0,
+    black,
+    black,
+    transparent 100%
+  );
+}
+
+.masonryDemo .masonryDemo__scrollContainer {
+  width: 600px;
+  top: 0;
+  right: 200px;
+
+  transform: translateY(var(--scroll-offset));
+
+  animation: scroll 60s linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+.masonryDemo .masonryDemo__scrollContainer.js-paused {
+  animation-play-state: paused;
+}
+
+.masonryDemo:hover .masonryDemo__container {
+  transform: rotate3d(5, -5, 1, 0deg);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-1000px);
+  }
+}
