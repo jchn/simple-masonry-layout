@@ -26,5 +26,8 @@
   ],
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.8.1"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.8"
   }
 }

@@ -113,12 +113,12 @@ function init(root: HTMLElement, imagePaths: URL[]) {
 
     container?.addEventListener("click", shuffleGrid);
 
-    window.addEventListener("focus", () => {
-      scrollContainer?.classList.remove("js-paused");
-    });
-
-    window.addEventListener("blur", () => {
-      scrollContainer?.classList.add("js-paused");
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        scrollContainer?.classList.remove("js-paused");
+      } else {
+        scrollContainer?.classList.add("js-paused");
+      }
     });
   });
 }
