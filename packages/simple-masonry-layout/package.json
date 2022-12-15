@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "Calculating masonry layouts based on rectangles.",
   "type": "module",
-  "typings": "./dist/src/index.d.ts",
+  "source": "src/index.ts",
+  "typings": "./dist/src/grid.d.ts",
   "exports": {
     "require": "./dist/simple-masonry-layout.cjs",
     "default": "./dist/simple-masonry-layout.modern.js"
