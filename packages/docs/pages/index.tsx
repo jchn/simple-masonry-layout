@@ -3,6 +3,17 @@ import Image from "next/image";
 import initDemo from "demo";
 import { useEffect, useRef } from "react";
 
+function once<F extends (...args: any[]) => any>(fn: F): F {
+  let hasRun = false;
+  return ((...args) => {
+    if (hasRun) return;
+    hasRun = true;
+    return fn.apply(null, args);
+  }) as F;
+}
+
+const initDemoOnce = once(initDemo);
+
 const codeExample1 = `
 /* 
 These are the original sizes of the elements you want to position
@@ -45,7 +56,7 @@ export default function Home() {
 
   useEffect(() => {
     if (someRef.current) {
-      initDemo(
+      initDemoOnce(
         someRef.current,
         Array.from({ length: 5 * 8 }).map(
           (_, i) =>
