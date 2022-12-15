@@ -5,6 +5,10 @@
 
   --scroll-offset: 0;
   perspective: 1600px;
+
+  margin: auto;
+
+  cursor: pointer;
 }
 
 .demo img {
@@ -17,7 +21,6 @@
 
 .container {
   position: relative;
-  transform: rotate3d(0, -1, 0, 50deg);
 
   overflow: hidden;
   height: 600px;
@@ -49,10 +52,6 @@
 
 .scrollContainer.js-paused {
   animation-play-state: paused;
-}
-
-.demo:hover .container {
-  transform: rotate3d(5, -5, 1, 0deg);
 }
 
 @keyframes scroll {
