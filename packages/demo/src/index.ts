@@ -1,5 +1,8 @@
-import { generate } from "simple-masonry-layout";
-import { Rect, SimpleMasonryLayoutOptions } from "simple-masonry-layout";
+import {
+  generate,
+  Rect,
+  SimpleMasonryLayoutOptions,
+} from "simple-masonry-layout";
 import cssText from "bundle-text:./style.css";
 
 let options: Omit<SimpleMasonryLayoutOptions, "sizes"> = {
@@ -15,23 +18,16 @@ type GridItem = {
   rectangle: Rect;
 };
 
-const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-const once = (fn) => {
-  let hasRun = false;
-  return (...args) => {
-    if (hasRun) return;
-    fn.apply(null, args);
-    hasRun = true;
-  };
-};
+function randomItem<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 const loadImage: (url: URL) => Promise<HTMLImageElement> = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();
     image.onload = () => resolve(image);
     image.onerror = reject;
-    image.src = url;
+    image.src = url.pathname;
   });
 
 function last<T>(items: T[]): T | null {
@@ -123,4 +119,4 @@ function init(root: HTMLElement, imagePaths: URL[]) {
   });
 }
 
-export default once(init);
+export default init;

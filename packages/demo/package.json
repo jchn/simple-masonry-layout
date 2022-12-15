@@ -4,6 +4,7 @@
   "description": "Demo using simple-masonry-layout",
   "main": "dist/index.js",
   "source": "dist/index.js",
+  "types": "dist/index.d.ts",
   "private": true,
   "devDependencies": {
     "parcel": "^2.8.0"
@@ -15,6 +16,6 @@
   "author": "John van de Water",
   "license": "MIT",
   "dependencies": {
-    "simple-masonry-layout": "2.0.0"
+    "simple-masonry-layout": "file:../simple-masonry-layout"
   }
 }
