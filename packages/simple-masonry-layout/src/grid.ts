@@ -90,8 +90,8 @@ export function scaleRectangle(
   return {
     x: rectangle.x,
     y: rectangle.y,
-    width: Math.floor(width),
-    height: Math.floor(height),
+    width: width,
+    height: height,
   };
 }
 

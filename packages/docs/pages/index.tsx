@@ -1,6 +1,7 @@
 import Head from "next/head";
 import initDemo from "demo";
 import { useEffect, useRef } from "react";
+import Grid from "@jchn/simple-masonry-layout-react";
 
 function once<F extends (...args: any[]) => any>(fn: F): F {
   let hasRun = false;
@@ -22,7 +23,7 @@ It might be measuring a bunch of images, getting this data from a backend, etc
 
 const sizes = [
     { width: 150, height: 500 }, 
-    { width: 500, height: 600 }, 
+    { width: 500, height: 600 },
     { width: 800, height: 600 }
 ]
 `;
@@ -141,7 +142,8 @@ export default function Home() {
             </pre>
             <p className="mt-8 text-xl leading-8 text-gray-500">
               These sizes can be added to an <code>options</code> object which
-              we'll use to configure our layout and has the following shape:
+              we&apos;ll use to configure our layout and has the following
+              shape:
             </p>
             <pre>
               <code className="language-js">{codeExample2}</code>
@@ -157,8 +159,8 @@ export default function Home() {
               <code className="language-js">{codeExample3}</code>
             </pre>
             <p className="mt-8 text-xl leading-8 text-gray-500">
-              Now it's up to you to map these rectangles to the positions on
-              screen using the DOM or a Canvas or anything else.
+              Now it&apos;s up to you to map these rectangles to the positions
+              on screen using the DOM or a Canvas or anything else.
             </p>
           </div>
         </div>
@@ -167,11 +169,24 @@ export default function Home() {
         <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
           <div className="mt-8 md:order-1 md:mt-0">
             <p className="text-center text-base text-gray-400">
-              You've reached the end of the page.
+              You&apos;ve reached the end of the page.
             </p>
           </div>
         </div>
       </footer>
+      {/*
+        <iframe
+        src="http://localhost:8080/"
+        style={{
+          opacity: 1,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "calc(100vw - 200px)",
+          height: "100vh",
+        }}
+      />
+      */}
     </div>
   );
 }
