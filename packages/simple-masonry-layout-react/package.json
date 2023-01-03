@@ -1,0 +1,30 @@
+{
+  "name": "@jchn/simple-masonry-layout-react",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "source": "src/index.ts",
+  "typings": "./dist/src/index.d.ts",
+  "exports": {
+    "require": "./dist/simple-masonry-layout-react.cjs",
+    "default": "./dist/simple-masonry-layout-react.modern.js"
+  },
+  "main": "./dist/simple-masonry-layout-react.cjs",
+  "module": "./dist/simple-masonry-layout-react.module.js",
+  "unpkg": "./dist/simple-masonry-layout-react.umd.js",
+  "scripts": {
+    "bundle": "microbundle src/index.tsx --jsx React.createElement"
+  },
+  "author": "John van de Water",
+  "license": "MIT",
+  "dependencies": {
+    "simple-masonry-layout": "file:../simple-masonry-layout"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "microbundle": "^0.15.1",
+    "react": "^18.2.0"
+  }
+}
