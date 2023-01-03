@@ -23,6 +23,7 @@
   "workspaces": [
     "packages/docs",
     "packages/demo",
-    "packages/simple-masonry-layout"
+    "packages/simple-masonry-layout",
+    "packages/simple-masonry-layout-react"
   ]
 }
