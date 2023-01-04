@@ -17,70 +17,80 @@ export type Size = {
   height: number;
 };
 
-export type CustomizeFn = (
-  options: Options,
-  rectangle: Rect,
-  index: number,
-  rectangles: Rect[]
-) => Rect;
-
 /**
  * Options to customize the layout.
  */
 export type Options = {
-  sizes: Size[];
-  /**
-   * Number of columns
-   */
-  columns: number;
-  width: number;
   gutter?: number;
   gutterX?: number;
   gutterY?: number;
   maxHeight?: number;
   collapsing?: boolean;
   centering?: boolean;
-  customize?: CustomizeFn;
+  paddingY?: number;
 };
 
 type RequiredOptions = Required<Options>;
 
-export function generate(options: Options): Rect[] {
-  const allOptions: RequiredOptions = {
-    sizes: options.sizes ?? [],
-    gutter: options.gutter || 0,
-    gutterX: options.gutterX ?? options.gutter ?? 0,
-    gutterY: options.gutterY ?? options.gutter ?? 0,
-    width: options.width,
-    columns: options.columns,
-    maxHeight: options.maxHeight ?? 0,
-    customize:
-      options.customize ??
-      ((options: Options, r: Rect, index: number, rectangles: Rect[]) => r),
-    collapsing: options.collapsing ?? true,
-    centering: options.centering ?? false,
+export function generate(
+  sizes: Size[],
+  width: number,
+  columns: number,
+  options: Options
+): Rect[] {
+  const scaleRectangleOptions: ScaleRectangleOptions = {
+    columns,
+    width,
+    gutterX: options.gutterX ?? options.gutter,
   };
 
-  return allOptions.sizes
+  const translateRectanglesForNColumnsOptions: TranslateRectanglesForNColumnsOptions =
+    {
+      columns,
+      width,
+      gutterX: options.gutterX ?? options.gutter,
+      gutterY: options.gutterY ?? options.gutter,
+      collapsing: options.collapsing,
+    };
+
+  const centerRectanglesOptions: CenterRectanglesOptions = {
+    columns,
+    width,
+    centering: options.centering,
+    gutterX: options.gutterX ?? options.gutter,
+  };
+
+  return sizes
     .map(toRectangle)
-    .map(scaleRectangle.bind(null, allOptions))
-    .map(allOptions.customize.bind(null, allOptions))
-    .map(translateRectanglesForNColumns.bind(null, allOptions))
-    .map(centerRectangles.bind(null, allOptions));
+    .map(scaleRectangle.bind(null, scaleRectangleOptions))
+    .map(padYRectangle.bind(null, options.paddingY ?? 0))
+    .map(
+      translateRectanglesForNColumns.bind(
+        null,
+        translateRectanglesForNColumnsOptions
+      )
+    )
+    .map(centerRectangles.bind(null, centerRectanglesOptions));
 }
 
 export function toRectangle(size: Size): Rect {
   return { x: 0, y: 0, ...size };
 }
 
-type ScaleRectangleOptions = Pick<
-  RequiredOptions,
-  "columns" | "width" | "gutterX" | "maxHeight"
->;
+function padYRectangle(amount: number, rectangle: Rect): Rect {
+  return { ...rectangle, height: rectangle.height + amount };
+}
+
+type ScaleRectangleOptions = {
+  columns: number;
+  width: number;
+  gutterX?: number;
+  maxHeight?: number;
+};
 
 /* Scale all rectangles to fit into a single column */
 export function scaleRectangle(
-  { columns, width: totalWidth, gutterX, maxHeight }: ScaleRectangleOptions,
+  { columns, width: totalWidth, gutterX = 0, maxHeight }: ScaleRectangleOptions,
   rectangle: Rect
 ): Rect {
   const w = rectangle.width;
@@ -116,9 +126,7 @@ export function rectanglesToColumns(
 
   const xValues = rectArray.reduce(function (
     values: number[],
-    rectangle: Rect,
-    i: number,
-    array: Rect[]
+    rectangle: Rect
   ) {
     if (!~values.findIndex(findValue(rectangle.x))) {
       values.push(rectangle.x);
@@ -129,9 +137,7 @@ export function rectanglesToColumns(
 
   const columns = rectArray.reduce(function (
     rectangles: Rect[],
-    rectangle: Rect,
-    i: number,
-    array: Rect[]
+    rectangle: Rect
   ) {
     const index = xValues.findIndex(findValue(rectangle.x));
 
@@ -189,14 +195,6 @@ export function placeAfterRectangle(
       return Object.assign({}, r);
     });
 
-  const columnsByXDesc = columns
-    .sort(function (columnA, columnB) {
-      return columnA.x - columnB.x;
-    })
-    .map(function (r) {
-      return Object.assign({}, r);
-    });
-
   if (collapsing) {
     // return the smallest column
     return columnsByHeightAsc[0];
@@ -210,45 +208,60 @@ export function placeAfterRectangle(
   }
 }
 
+type TranslateRectanglesForNColumnsOptions = {
+  columns: number;
+  width: number;
+  gutterX?: number;
+  gutterY?: number;
+  collapsing?: boolean;
+};
+
 /* Translate rectangles into position */
 export function translateRectanglesForNColumns(
-  options: RequiredOptions,
+  options: TranslateRectanglesForNColumnsOptions,
   rectangle: Rect,
   i: number,
   rectangles: Rect[]
 ): Rect {
+  const {
+    columns,
+    width,
+    gutterX = 0,
+    gutterY = 0,
+    collapsing = true,
+  } = options;
+
   let placeAfter: Rect;
 
   if (!i) {
     // first round
     rectangle = placeRectangleAt(rectangle, 0, 0);
     return rectangle;
-  } else if (i < options.columns) {
+  } else if (i < columns) {
     // first row
     rectangle = placeRectangleAt(
       rectangle,
-      widthSingleColumn(options.columns, options.width, options.gutterX) * i +
-        options.gutterX * i,
+      widthSingleColumn(columns, width, gutterX) * i + gutterX * i,
       0
     );
     return rectangle;
   } else {
     // Pass array of all previous rectangles, give back leading rectangle
-    if (options.collapsing) {
+    if (collapsing) {
       placeAfter = placeAfterRectangle(
         rectangles.slice(0, i),
-        options.gutterY,
-        options.collapsing,
-        options.columns,
+        gutterY,
+        collapsing,
+        columns,
         i
       );
     } else {
       // only use the rectangles from te previous row
       placeAfter = placeAfterRectangle(
-        rectangles.slice(0, i - (i % options.columns)),
-        options.gutterY,
-        options.collapsing,
-        options.columns,
+        rectangles.slice(0, i - (i % columns)),
+        gutterY,
+        collapsing,
+        columns,
         i
       );
     }
@@ -257,13 +270,15 @@ export function translateRectanglesForNColumns(
   }
 }
 
-type CenterRectanglesOptions = Pick<
-  RequiredOptions,
-  "centering" | "columns" | "width" | "gutterX"
->;
+type CenterRectanglesOptions = {
+  columns: number;
+  width: number;
+  centering?: boolean;
+  gutterX?: number;
+};
 
 export function centerRectangles(
-  { centering, columns, width, gutterX }: CenterRectanglesOptions,
+  { columns, width, centering = false, gutterX = 0 }: CenterRectanglesOptions,
   rectangle: Rect,
   i: number,
   rectangles: Rect[]
