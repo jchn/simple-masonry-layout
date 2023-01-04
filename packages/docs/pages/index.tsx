@@ -1,7 +1,7 @@
 import Head from "next/head";
 import initDemo from "demo";
 import { useEffect, useRef } from "react";
-import Grid from "@jchn/simple-masonry-layout-react";
+import CodeBlock from "../components/CodeBlock/index";
 
 function once<F extends (...args: any[]) => any>(fn: F): F {
   let hasRun = false;
@@ -13,43 +13,6 @@ function once<F extends (...args: any[]) => any>(fn: F): F {
 }
 
 const initDemoOnce = once(initDemo);
-
-const codeExample1 = `
-/* 
-These are the original sizes of the elements you want to position
-The way you obtain these values is up to you
-It might be measuring a bunch of images, getting this data from a backend, etc
-*/
-
-const sizes = [
-    { width: 150, height: 500 }, 
-    { width: 500, height: 600 },
-    { width: 800, height: 600 }
-]
-`;
-
-const codeExample2 = `
-const options = {
-  sizes,             // The array of sizes
-  columns: 3,        // The number of columns
-  width: 800,        // The width of the layout
-  gutter: 8,         // (Optional) The size of the gutters
-  gutterX: null,     // (Optional) The size of the horizontal gutters
-  gutterY: null,     // (Optional) The size of the vertical gutters
-  maxHeight: null,   // (Optional) The maximum height a single item can get
-  collapsing: true,  // (Optional) If the items should collapse into each other
-  centering: false,  // (Optional) Center items if there are less items than the number of columns
-  customize: null;   // (Optional) A function to customize the dimensions before they get positioned
-}
-`;
-
-const codeExample3 = `
-import { generate } from "simple-masonry-layout"
-
-...
-
-const rectangles = generate(options)
-`;
 
 export default function Home() {
   const someRef = useRef<HTMLDivElement>(null);
@@ -85,7 +48,7 @@ export default function Home() {
               <div className="lg:py-32 col-span-1 text-center lg:text-start">
                 <div className="inline-flex relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   <code className="text-gray-600">
-                    npm i simple-masonry-layout
+                    npm i @jchn/simple-masonry-layout
                   </code>
                 </div>
                 <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
@@ -132,38 +95,97 @@ export default function Home() {
             >
               Getting started
             </h1>
+
+            <h2>Install</h2>
+
+            <code>npm install @jchn/simple-masonry-layout</code>
+
+            <h2>Creating rectangles</h2>
+
             <p className="mt-8 text-xl leading-8 text-gray-500">
-              Create a layout by first obtaining an array of sizes, a{" "}
-              <code>size</code> is an object with a <code>width</code> and{" "}
-              <code>height</code> property:
+              SimpleMasonryLayout has one single function which is called{" "}
+              <code>getRectangles</code>, this function will return an array of
+              rectangles:
             </p>
-            <pre>
-              <code className="language-js">{codeExample1}</code>
-            </pre>
+
+            <CodeBlock language="typescript" showLineNumbers>
+              {`import { getRectangles } from '@jchn/simple-masonry-layout'
+
+const sizes = [{ width: 150, height: 200 }, { width: 200, height: 150 }]
+
+const rectangles = getRectangles(sizes, 800, 3, { gutter: 10 })`}
+            </CodeBlock>
+            <details>
+              <summary>
+                <code>getRectangles(params)</code>
+              </summary>
+              <CodeBlock language="typescript">
+                {`getRectangles(
+  sizes: Size[],    // The input dimensions, oftentimes the width and height of an image
+  width: number,    // The width of the grid
+  columns: number,  // The number of columns
+  options?: Options // More options
+) => Rect[]
+              
+type Size = { 
+  width: number, 
+  height: number 
+}
+
+type Options = {
+  gutter: number,   // x and y gutter
+  gutterX: number,  // x gutter
+  gutterY: number,  // y gutter
+  paddingY: number, // additional height added to rectangle
+  collapsing: bool, // if the elements should collapse into each other
+  centering: bool   // if the elements should be centered if there are less items then columns
+}
+
+type Rect = {
+  x: number,
+  y: number,
+  width: number,
+  height: number
+}`}
+              </CodeBlock>
+            </details>
+
             <p className="mt-8 text-xl leading-8 text-gray-500">
-              These sizes can be added to an <code>options</code> object which
-              we&apos;ll use to configure our layout and has the following
-              shape:
+              Now it&apos;s up to you to translate these rectangles to something
+              on screen using the DOM or a Canvas or anything else:
             </p>
-            <pre>
-              <code className="language-js">{codeExample2}</code>
-            </pre>
-            <p className="mt-8 text-xl leading-8 text-gray-500">
-              Finally we can pass the options to the <code>generate</code>{" "}
-              function. This function will return an array of rectangles, a{" "}
-              <code>Rectangle</code> is an object with an <code>x</code>,{" "}
-              <code>y</code>, <code>width</code> and <code>height</code>{" "}
-              property.
-            </p>
-            <pre>
-              <code className="language-js">{codeExample3}</code>
-            </pre>
-            <p className="mt-8 text-xl leading-8 text-gray-500">
-              Now it&apos;s up to you to map these rectangles to the positions
-              on screen using the DOM or a Canvas or anything else.
-            </p>
+
+            <CodeBlock
+              language="typescript"
+              showLineNumbers
+              startingLineNumber={10}
+            >
+              {`rectangles.forEach(rectangle => {
+  const div = document.createElement('div')
+
+  div.style.cssText = \`
+    position: absolute;
+    top: \${rectangle.x};
+    left: \${rectangle.y};
+    width: \${rectangle.width}px;
+    height: \${rectangle.height}px;
+    border: 1px solid;
+  \`
+
+  document.body.appendChild(div)
+})`}
+            </CodeBlock>
           </div>
         </div>
+
+        <h1
+          id="getting-started"
+          className="mt-2 block text-3xl text-center font-bold leading-8 tracking-tight text-blue-600 sm:text-4xl"
+        >
+          Examples
+        </h1>
+
+        <p>Add a couple of grid tiles linking to examples.</p>
       </main>
       <footer className="bg-white">
         <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
@@ -174,19 +196,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      {/*
-        <iframe
-        src="http://localhost:8080/"
-        style={{
-          opacity: 1,
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "calc(100vw - 200px)",
-          height: "100vh",
-        }}
-      />
-      */}
     </div>
   );
 }
