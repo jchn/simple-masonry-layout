@@ -1,3 +1,7 @@
+/**
+ * A rectangle indicating a position and width/height properties
+ * to be presented on screen.
+ */
 export type Rect = {
   x: number;
   y: number;
@@ -5,20 +9,29 @@ export type Rect = {
   height: number;
 };
 
+/**
+ * A size used by SimpleMasonryLayout to determine the aspect ratio of an item.
+ */
 export type Size = {
   width: number;
   height: number;
 };
 
 export type CustomizeFn = (
-  options: SimpleMasonryLayoutOptions,
+  options: Options,
   rectangle: Rect,
   index: number,
   rectangles: Rect[]
 ) => Rect;
 
-export type SimpleMasonryLayoutOptions = {
+/**
+ * Options to customize the layout.
+ */
+export type Options = {
   sizes: Size[];
+  /**
+   * Number of columns
+   */
   columns: number;
   width: number;
   gutter?: number;
@@ -30,9 +43,9 @@ export type SimpleMasonryLayoutOptions = {
   customize?: CustomizeFn;
 };
 
-type RequiredOptions = Required<SimpleMasonryLayoutOptions>;
+type RequiredOptions = Required<Options>;
 
-export function generate(options: SimpleMasonryLayoutOptions): Rect[] {
+export function generate(options: Options): Rect[] {
   const allOptions: RequiredOptions = {
     sizes: options.sizes ?? [],
     gutter: options.gutter || 0,
@@ -43,12 +56,7 @@ export function generate(options: SimpleMasonryLayoutOptions): Rect[] {
     maxHeight: options.maxHeight ?? 0,
     customize:
       options.customize ??
-      ((
-        options: SimpleMasonryLayoutOptions,
-        r: Rect,
-        index: number,
-        rectangles: Rect[]
-      ) => r),
+      ((options: Options, r: Rect, index: number, rectangles: Rect[]) => r),
     collapsing: options.collapsing ?? true,
     centering: options.centering ?? false,
   };
