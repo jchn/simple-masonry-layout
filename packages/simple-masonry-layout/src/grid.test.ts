@@ -1,5 +1,5 @@
 import test from "ava";
-import { generate, Rect, scaleRectangle, Size, toRectangle } from "./grid";
+import { getLayout, Rect, Size, Item } from "./grid";
 
 function extractSize(rectangle: Rect): Size {
   return {
@@ -19,18 +19,20 @@ test("x and y gutter should be separately configurable", (t) => {
   sizes.push({ width: 800, height: 800 });
   sizes.push({ width: 800, height: 800 });
 
-  const rectangles = generate(sizes, 800, 2, {
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+
+  const layout = getLayout(items, 800, 2, {
     gutterX,
     gutterY,
   });
 
   t.is(
-    800 - (rectangles[0].width + rectangles[1].width),
+    800 - (layout.items[0].rect.width + layout.items[1].rect.width),
     gutterX,
     "GutterX is reflected in the grid"
   );
   t.is(
-    rectangles[2].y - rectangles[0].height,
+    layout.items[2].rect.y - layout.items[0].rect.height,
     gutterY,
     "GutterY is reflected in the grid"
   );
@@ -46,12 +48,14 @@ test("Max height should be configurable", (t) => {
     sizes.push({ width: 2500, height: 2500 });
   }
 
-  const rectangles = generate(sizes, 3, width, {
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+
+  const layout = getLayout(items, 3, width, {
     maxHeight,
   });
 
   t.true(
-    rectangles.every((r) => r.height <= maxHeight),
+    layout.items.every((i) => i.rect.height <= maxHeight),
     "All items aren't any bigger than max height"
   );
 });
@@ -66,15 +70,17 @@ test("Collapsing should affect the grid", (t) => {
     });
   }
 
-  const rectangles1 = generate(sizes, 800, 3, {
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+
+  const gridItems1 = getLayout(items, 800, 3, {
     collapsing: true,
   });
 
-  const rectangles2 = generate(sizes, 800, 3, {
+  const gridItems2 = getLayout(items, 800, 3, {
     collapsing: false,
   });
 
-  t.notDeepEqual(rectangles1, rectangles2);
+  t.notDeepEqual(gridItems1, gridItems2);
 });
 
 test("Layout order should be maintained", (t) => {
@@ -84,10 +90,12 @@ test("Layout order should be maintained", (t) => {
     { width: 500, height: 3 },
   ];
 
-  const rectangles = generate(sizes, 1000, 2, { gutter: 0 });
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+
+  const layout = getLayout(items, 1000, 2, { gutter: 0, collapsing: false });
 
   t.deepEqual(
-    rectangles.map((r) => r.height),
+    layout.items.map((i) => i.rect.height),
     [1, 2, 3]
   );
 });
@@ -115,10 +123,12 @@ test("The centering option should center the colums when there are less blocks t
 
   const sizes = expectedPattern.map(extractSize);
 
-  const returnedPattern = generate(sizes, width, columns, {
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+
+  const returnedPattern = getLayout(items, width, columns, {
     gutter,
     centering,
-  });
+  }).items.map((i) => i.rect);
 
   t.deepEqual(expectedPattern, returnedPattern);
 });
@@ -134,29 +144,33 @@ test("PaddingY should add a fixed amount of height to each rectangle", (t) => {
     },
   ];
 
-  const rectangles = generate(sizes, 800, 1, { paddingY: 200 });
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+
+  const layout = getLayout(items, 800, 1, { paddingY: 200 });
 
   t.is(
-    rectangles[0].height,
+    layout.items[0].rect.height,
     width + paddingY,
     "PaddingY is added to the size of a rectangle"
   );
 });
 
-// test.only("Generating 1000 rectangles should take less time than 16ms", (t) => {
-//   const sizes: Size[] = Array(1000)
-//     .fill(null)
-//     .map(() => ({
-//       width: Math.random() * 150,
-//       height: Math.random() * 150,
-//     }));
+test("Generating 1000 rectangles should take less time than 16ms", (t) => {
+  const sizes: Size[] = Array(1000)
+    .fill(null)
+    .map(() => ({
+      width: Math.random() * 150,
+      height: Math.random() * 150,
+    }));
 
-//   const start = process.hrtime();
+  const start = process.hrtime();
 
-//   generate(sizes, 800, 3, {});
+  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
 
-//   const elapsed = process.hrtime(start);
-//   const ms = elapsed[0] * 1000 + elapsed[1] / 1000000;
+  const _ = getLayout(items, 800, 3, {});
 
-//   t.assert(ms <= 16, `Grid is generated in a reasonable time, it took ${ms}ms`);
-// });
+  const elapsed = process.hrtime(start);
+  const ms = elapsed[0] * 1000 + elapsed[1] / 1000000;
+
+  t.assert(ms <= 16, `Grid is generated in a reasonable time, it took ${ms}ms`);
+});

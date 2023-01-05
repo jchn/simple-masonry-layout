@@ -1,60 +1,42 @@
 import React, { ReactNode } from "react";
 import {
-  generate,
-  SimpleMasonryLayoutOptions,
-  Rect,
-  Size,
-} from "simple-masonry-layout";
+  getLayout,
+  Options,
+  GridItem,
+  Item,
+} from "@jchn/simple-masonry-layout";
 
-type MasonryGridItem<T> = {
-  size: Size;
+interface KeyHolder {
   key: string;
-  data: T;
-};
+}
 
-type CalculatedMasonryGridItem<T> = MasonryGridItem<T> & { rectangle: Rect };
+type MasonryGridProps<T extends KeyHolder> =
+  React.HTMLAttributes<HTMLDivElement> & {
+    items: Item<T>[];
+    width: number;
+    columns: number;
+    options: Options;
+    renderContent: (props: GridItem<T>) => ReactNode;
+    divAttrs?: React.HTMLAttributes<HTMLDivElement>;
+  };
 
-type MasonryGridProps<T> = Omit<SimpleMasonryLayoutOptions, "sizes"> & {
-  items: MasonryGridItem<T>[];
-  renderContent: (props: CalculatedMasonryGridItem<T>) => ReactNode;
-};
+function MasonryGrid<T extends KeyHolder>({
+  items,
+  width,
+  columns,
+  options,
+  renderContent,
+  ...divAttrs
+}: MasonryGridProps<T>) {
+  const layout = getLayout(items, width, columns, options);
 
-export const MasonryGridItem: React.FC<{
-  rectangle: Rect;
-  children: ReactNode;
-}> = (props) => (
-  <div
-    style={{
-      position: "absolute",
-      top: 0,
-      left: 0,
-      transform: `translate(${props.rectangle.x}px, ${props.rectangle.y})`,
-    }}
-  >
-    {props.children}
-  </div>
-);
-
-// Probably doesn't even need to render a div
-function MasonryGrid<T>(props: MasonryGridProps<T>) {
-  const rectangles = generate({
-    ...props,
-    sizes: props.items.map((i) => i.size),
-  });
-
-  if (rectangles.length == 0) return null;
+  const gridItems = layout.items;
 
   return (
-    <div
-      style={{
-        height:
-          rectangles[rectangles.length - 1].height +
-          rectangles[rectangles.length - 1].y,
-      }}
-    >
-      {rectangles.map((r, index) => (
-        <React.Fragment key={props.items[index].key}>
-          {props.renderContent({ ...props.items[index], rectangle: r })}
+    <div {...divAttrs} style={{ height: layout.height, ...divAttrs?.style }}>
+      {gridItems.map((item) => (
+        <React.Fragment key={item.data.key}>
+          {renderContent(item)}
         </React.Fragment>
       ))}
     </div>

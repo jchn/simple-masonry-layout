@@ -44,7 +44,7 @@ const urls = [
   new URL("./img/4.webp", import.meta.url),
 ];
 
-const container = document.querySelector("#container");
+const container = document.querySelector("#container") as HTMLElement;
 
 if (container) {
   init(container, urls);

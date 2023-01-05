@@ -5,7 +5,8 @@
     "noEmit": true,
     "declaration": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "ES5"
   },
   "include": ["./src/**/*"],
   "exclude": ["./**/*.test.ts"]
