@@ -1,1 +1,1 @@
-export { generate } from "./grid";
+export { getLayout } from "./grid";

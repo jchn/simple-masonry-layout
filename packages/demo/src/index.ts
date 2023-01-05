@@ -1,21 +1,20 @@
 import {
-  generate,
-  Rect,
-  SimpleMasonryLayoutOptions,
-} from "simple-masonry-layout";
+  getLayout,
+  Options,
+  GridItem,
+  Item,
+  Layout,
+} from "@jchn/simple-masonry-layout";
 import cssText from "bundle-text:./style.css";
 
-let options: Omit<SimpleMasonryLayoutOptions, "sizes"> = {
+type DemoOptions = Options & { columns: number; width: number };
+
+let options: DemoOptions = {
   gutter: 16,
-  columns: 4,
-  width: 600,
   centering: false,
   collapsing: true,
-};
-
-type GridItem = {
-  img: HTMLImageElement;
-  rectangle: Rect;
+  width: 600,
+  columns: 4,
 };
 
 function randomItem<T>(arr: T[]): T {
@@ -34,27 +33,30 @@ function last<T>(items: T[]): T | null {
   return items[items.length - 1] ?? null;
 }
 
-let gridItems: GridItem[] = [];
+let layout: Layout<HTMLImageElement> | null = null;
 
-function createGridItems(
-  options: Omit<SimpleMasonryLayoutOptions, "sizes">,
+function createLayout(
+  options: DemoOptions,
   images: HTMLImageElement[]
-): GridItem[] {
-  const sizes = images.map((img) => ({ width: img.width, height: img.height }));
-  return generate({ ...options, sizes }).map((rectangle, i) => ({
-    img: images[i],
-    rectangle,
+): Layout<HTMLImageElement> {
+  const items: Item<HTMLImageElement>[] = images.map((img) => ({
+    size: { width: img.width, height: img.height },
+    data: img,
   }));
+
+  const layout = getLayout(items, options.width, options.columns, options);
+
+  return layout;
 }
 
-function updateGridItems(items: GridItem[]) {
+function updateGridItems(items: GridItem<HTMLImageElement>[]) {
   items.forEach((item) => {
-    item.img.width = item.rectangle.width;
-    item.img.height = item.rectangle.height;
+    item.data.width = item.rect.width;
+    item.data.height = item.rect.height;
 
-    item.img.style.transform = `translate(${item.rectangle.x}px, ${item.rectangle.y}px)`;
-    item.img.style.width = `${item.rectangle.width}px`;
-    item.img.style.height = `${item.rectangle.height}px`;
+    item.data.style.transform = `translate(${item.rect.x}px, ${item.rect.y}px)`;
+    item.data.style.width = `${item.rect.width}px`;
+    item.data.style.height = `${item.rect.height}px`;
   });
 
   const scroll = document.querySelector<HTMLElement>(".scrollContainer");
@@ -65,7 +67,7 @@ function updateGridItems(items: GridItem[]) {
 
   if (lastItem) {
     scroll.style.height = `${
-      lastItem.rectangle.y ?? 0 + lastItem.rectangle.height ?? 0
+      lastItem.rect.y ?? 0 + lastItem.rect.height ?? 0
     }px`;
   }
 }
@@ -76,10 +78,7 @@ function shuffleGrid() {
   options.collapsing = randomItem([true, true, false]);
 
   updateGridItems(
-    createGridItems(
-      options,
-      gridItems.map((item) => item.img)
-    )
+    createLayout(options, layout?.items.map((item) => item.data) ?? []).items
   );
 }
 
@@ -98,14 +97,14 @@ function init(root: HTMLElement, imagePaths: URL[]) {
 
   // Load data
   Promise.all(imagePaths.map(loadImage)).then((imgs) => {
-    gridItems = createGridItems(options, imgs);
+    layout = createLayout(options, imgs);
 
     const scrollContainer = shadow.querySelector(".scrollContainer");
 
-    scrollContainer?.replaceChildren(...gridItems.map((item) => item.img));
+    scrollContainer?.replaceChildren(...layout.items.map((item) => item.data));
     scrollContainer?.addEventListener("animationiteration", shuffleGrid);
 
-    updateGridItems(gridItems);
+    updateGridItems(layout.items);
 
     container?.addEventListener("click", shuffleGrid);
 

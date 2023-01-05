@@ -1,13 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-} from "react";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
 import React from "react";
 
 /**
@@ -109,7 +103,7 @@ function TransitionComponent({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (router.isReady === false) return;
 
     observer.current = new MutationObserver(observerCallback);

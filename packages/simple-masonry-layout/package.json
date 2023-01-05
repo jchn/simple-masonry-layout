@@ -1,6 +1,6 @@
 {
   "name": "@jchn/simple-masonry-layout",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Calculating masonry layouts based on rectangles.",
   "type": "module",
   "source": "src/index.ts",
@@ -20,7 +20,7 @@
     "test": "ava",
     "test:dev": "ava --watch",
     "clean": "rimraf dist",
-    "release": "npm run -s build -s && npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+    "release": "npm run -s build -s && npm t && git commit -am simple-masonry-layout/$npm_package_version && git tag simple-masonry-layout/$npm_package_version && git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",

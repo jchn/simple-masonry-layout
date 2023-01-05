@@ -1,7 +1,8 @@
 import Head from "next/head";
-import initDemo from "demo";
+import initDemo from "@jchn/simple-masonry-demo";
 import { useEffect, useRef } from "react";
 import CodeBlock from "../components/CodeBlock/index";
+import { getLayout } from "@jchn/simple-masonry-layout";
 
 function once<F extends (...args: any[]) => any>(fn: F): F {
   let hasRun = false;
@@ -100,36 +101,53 @@ export default function Home() {
 
             <code>npm install @jchn/simple-masonry-layout</code>
 
-            <h2>Creating rectangles</h2>
+            <h2>Creating the layout</h2>
 
             <p className="mt-8 text-xl leading-8 text-gray-500">
               SimpleMasonryLayout has one single function which is called{" "}
-              <code>getRectangles</code>, this function will return an array of
-              rectangles:
+              <code>getLayout</code>, this function will return an object
+              describing the layout.
             </p>
 
             <CodeBlock language="typescript" showLineNumbers>
-              {`import { getRectangles } from '@jchn/simple-masonry-layout'
+              {`import { getLayout } from '@jchn/simple-masonry-layout'
 
 const sizes = [{ width: 150, height: 200 }, { width: 200, height: 150 }]
 
-const rectangles = getRectangles(sizes, 800, 3, { gutter: 10 })`}
+const layout = getLayout(sizes, 800, 3, { gutter: 10 })`}
             </CodeBlock>
             <details>
               <summary>
-                <code>getRectangles(params)</code>
+                <code>getLayout(params)</code>
               </summary>
               <CodeBlock language="typescript">
-                {`getRectangles(
+                {`getLayout<T>(
   sizes: Size[],    // The input dimensions, oftentimes the width and height of an image
   width: number,    // The width of the grid
   columns: number,  // The number of columns
   options?: Options // More options
-) => Rect[]
-              
+) => Layout<T>
+
+type Layout<T> = {
+  items: GridItem<T>[]
+  height: number
+}
+
+type GridItem<T> = {
+  rect: Rect
+  data: T
+}
+
 type Size = { 
   width: number, 
   height: number 
+}
+
+type Rect = {
+  x: number,
+  y: number,
+  width: number,
+  height: number
 }
 
 type Options = {
@@ -140,35 +158,33 @@ type Options = {
   collapsing: bool, // if the elements should collapse into each other
   centering: bool   // if the elements should be centered if there are less items then columns
 }
-
-type Rect = {
-  x: number,
-  y: number,
-  width: number,
-  height: number
-}`}
+`}
               </CodeBlock>
             </details>
 
             <p className="mt-8 text-xl leading-8 text-gray-500">
-              Now it&apos;s up to you to translate these rectangles to something
-              on screen using the DOM or a Canvas or anything else:
+              Now it&apos;s up to you to translate this layout object to
+              something on screen using the DOM or a Canvas or anything else:
             </p>
 
             <CodeBlock
               language="typescript"
               showLineNumbers
-              startingLineNumber={10}
+              startingLineNumber={6}
             >
-              {`rectangles.forEach(rectangle => {
+              {`const container = document.querySelector(".container")
+
+container.style.height = \`\${layout.height}px\`
+              
+layout.items.forEach({ rect } => {
   const div = document.createElement('div')
 
   div.style.cssText = \`
     position: absolute;
-    top: \${rectangle.x};
-    left: \${rectangle.y};
-    width: \${rectangle.width}px;
-    height: \${rectangle.height}px;
+    top: \${rect.x};
+    left: \${rect.y};
+    width: \${rect.width}px;
+    height: \${rect.height}px;
     border: 1px solid;
   \`
 
@@ -177,15 +193,6 @@ type Rect = {
             </CodeBlock>
           </div>
         </div>
-
-        <h1
-          id="getting-started"
-          className="mt-2 block text-3xl text-center font-bold leading-8 tracking-tight text-blue-600 sm:text-4xl"
-        >
-          Examples
-        </h1>
-
-        <p>Add a couple of grid tiles linking to examples.</p>
       </main>
       <footer className="bg-white">
         <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
