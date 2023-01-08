@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import { ImageResponseItem } from "../../api/images";
 import { TransitionTarget } from "../../_app";
 import Image from "next/image";
-import useSWR from "swr";
+import useSWR, { Fetcher } from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher: Fetcher<ImageResponseItem, string> = (url) =>
+  fetch(url).then((res) => res.json());
 
 export default function ReactExample() {
   const router = useRouter();
