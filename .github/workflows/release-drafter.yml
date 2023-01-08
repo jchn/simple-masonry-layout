@@ -1,0 +1,40 @@
+name: Release Drafter
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  simple-masonry-layout:
+    name: '[simple-masonry-layout] Draft release'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter-simple-masonry-layout.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  simple-masonry-layout-react:
+    name: '[simple-masonry-layout-react] Draft release'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter-simple-masonry-layout-react.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
