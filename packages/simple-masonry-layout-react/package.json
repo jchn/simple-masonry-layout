@@ -1,0 +1,43 @@
+{
+  "name": "@jchn/simple-masonry-layout-react",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "source": "src/index.ts",
+  "typings": "./dist/src/index.d.ts",
+  "exports": {
+    "require": "./dist/simple-masonry-layout-react.cjs",
+    "default": "./dist/simple-masonry-layout-react.modern.js"
+  },
+  "main": "./dist/simple-masonry-layout-react.cjs",
+  "module": "./dist/simple-masonry-layout-react.module.js",
+  "unpkg": "./dist/simple-masonry-layout-react.umd.js",
+  "scripts": {
+    "build": "npm-run-all --silent clean -p bundle -s",
+    "bundle": "microbundle src/index.tsx --jsx React.createElement",
+    "clean": "rimraf dist",
+    "release": "npm run -s build -s && npm t && git commit -am simple-masonry-layout-react/$npm_package_version && git tag simple-masonry-layout-react/$npm_package_version && git push && git push --tags && npm publish",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck"
+  },
+  "author": "John van de Water",
+  "license": "MIT",
+  "keywords": [
+    "masonry",
+    "layout",
+    "grid",
+    "react"
+  ],
+  "dependencies": {
+    "@jchn/simple-masonry-layout": "file:../simple-masonry-layout"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "microbundle": "^0.15.1",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.2.0",
+    "rimraf": "^3.0.2"
+  }
+}

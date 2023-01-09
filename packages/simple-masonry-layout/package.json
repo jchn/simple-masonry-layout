@@ -1,0 +1,63 @@
+{
+  "name": "@jchn/simple-masonry-layout",
+  "version": "0.0.0",
+  "description": "Calculating masonry layouts based on rectangles.",
+  "type": "module",
+  "source": "src/index.ts",
+  "typings": "./dist/src/grid.d.ts",
+  "exports": {
+    "require": "./dist/simple-masonry-layout.cjs",
+    "default": "./dist/simple-masonry-layout.modern.js"
+  },
+  "main": "./dist/simple-masonry-layout.cjs",
+  "module": "./dist/simple-masonry-layout.module.js",
+  "unpkg": "./dist/simple-masonry-layout.umd.js",
+  "scripts": {
+    "bundle": "microbundle",
+    "build": "npm-run-all --silent clean -p bundle -s",
+    "dev": "microbundle watch",
+    "typecheck": "tsc --noEmit",
+    "test": "ava",
+    "test:dev": "ava --watch",
+    "clean": "rimraf dist",
+    "release": "npm run -s build -s && npm t && git commit -am simple-masonry-layout/$npm_package_version && git tag simple-masonry-layout/$npm_package_version && git push && git push --tags && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jchn/simple-masonry-layout.git"
+  },
+  "keywords": [
+    "masonry",
+    "layout",
+    "grid"
+  ],
+  "author": {
+    "name": "John van de Water",
+    "email": "john.vd.water85@gmail.com",
+    "url": "http://github.com/jchn"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jchn/simple-masonry-layout/issues"
+  },
+  "homepage": "https://github.com/jchn/simple-masonry-layout#readme",
+  "devDependencies": {
+    "@ava/typescript": "^3.0.1",
+    "ava": "^5.1.0",
+    "microbundle": "^0.15.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "tsx": "^3.12.1",
+    "typescript": "^4.8.4"
+  },
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=tsx"
+    ],
+    "failFast": true
+  }
+}

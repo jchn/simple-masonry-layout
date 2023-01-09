@@ -1,0 +1,13 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "target": "ES5"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./**/*.test.ts"]
+}

@@ -1,46 +1,38 @@
 {
   "name": "simple-masonry-layout",
-  "version": "1.4.0",
-  "description": "Calculating masonry layouts based on rectangles, without being tied to the DOM.",
-  "main": "index.js",
-  "directories": {
-    "test": "test",
-    "lib": "lib",
-    "examples": "examples"
-  },
+  "version": "1.0.0",
+  "description": "Monorepo for simple-masonry-layout",
+  "private": true,
   "scripts": {
-    "test": "ava"
+    "test": "npm run test --workspaces --if-present",
+    "bundle": "npm run bundle --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
+    "build": "npm-run-all sml:build smlr:build demo:build docs:build",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "dev": "npm run dev --workspace=simple-masonry-layout",
+    "docs:dev": "npm run dev --workspace=docs",
+    "docs:build": "npm run build --workspace=packages/docs",
+    "docs:start": "npm run start --workspace=packages/docs",
+    "docs:lint": "npm run lint --workspace=packages/docs",
+    "demo:dev": "npm run dev --workspace=packages/demo",
+    "sml:build": "npm run build --workspace=packages/simple-masonry-layout",
+    "smlr:build": "npm run build --workspace=packages/simple-masonry-layout-react",
+    "demo:build": "npm run build --workspace=packages/demo"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jchn/simple-masonry-layout.git"
-  },
-  "keywords": [
-    "masonry",
-    "layout",
-    "grid"
-  ],
-  "author": {
-    "name": "John van de Water",
-    "email": "john.vd.water85@gmail.com",
-    "url": "http://github.com/jchn"
-  },
+  "keywords": [],
+  "author": "John van de Water",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jchn/simple-masonry-layout/issues"
-  },
-  "homepage": "https://github.com/jchn/simple-masonry-layout#readme",
-  "ava": {
-    "files": [
-      "test/*.js"
-    ],
-    "failFast": true,
-    "tap": true,
-    "require": [
-      "babel-register"
-    ]
-  },
+  "workspaces": [
+    "packages/docs",
+    "packages/demo",
+    "packages/simple-masonry-layout",
+    "packages/simple-masonry-layout-react"
+  ],
   "devDependencies": {
-    "ava": "^0.14.0"
+    "@parcel/packager-ts": "^2.8.1",
+    "@parcel/transformer-inline-string": "^2.8.1",
+    "@parcel/transformer-typescript-types": "^2.8.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.9.4"
   }
 }
