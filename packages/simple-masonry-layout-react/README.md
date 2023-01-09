@@ -12,8 +12,8 @@ import Layout from "@jchn/simple-masonry-layout-react"
 
 const MasonryGrid = () => {
   const items = [
-    { size: { width: 150, height: 200 }, data: null },
-    { size: { width: 200, height: 150 }: data: null },
+    { size: { width: 150, height: 200 }, data: { key: 'some-unique-key' } },
+    { size: { width: 200, height: 150 }: data: { key: 'some-other-unique-key' } },
   ];
 
   return (
