@@ -1,0 +1,6 @@
+_extends: simple-masonry-layout:.github/release-drafter.yml
+name-template: "smlr-v$RESOLVED_VERSION"
+tag-template: "smlr-v$RESOLVED_VERSION"
+tag-prefix: smlr-v
+include-paths:
+  - "packages/simple-masonry-layout-react/"
