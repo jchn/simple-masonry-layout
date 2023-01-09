@@ -16,6 +16,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm build
-      - run: npm publish --workspace simple-masonry-layout-react
+      - run: npm publish --workspace packages/simple-masonry-layout-react
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

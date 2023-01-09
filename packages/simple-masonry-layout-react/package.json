@@ -1,7 +1,10 @@
 {
   "name": "@jchn/simple-masonry-layout-react",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "React component for creating masonry layouts.",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "source": "src/index.ts",
   "typings": "./dist/src/index.d.ts",
