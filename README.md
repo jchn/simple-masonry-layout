@@ -13,16 +13,16 @@ SimpleMasonryLayout has one single function which is called `getLayout`, this fu
 ```ts
 import { getLayout } from "@jchn/simple-masonry-layout";
 
-const sizes = [
-  { width: 150, height: 200 },
-  { width: 200, height: 150 },
+const items = [
+  { size: { width: 150, height: 200 }, data: null },
+  { size: { width: 200, height: 150 }: data: null },
 ];
-const layout = getLayout(sizes, 800, 3, { gutter: 10 });
+const layout = getLayout(items, 800, 3, { gutter: 10 });
 ```
 
 ```ts
 getLayout<T>(
-  sizes: Size[],    // The input dimensions, oftentimes the width and height of an image
+  items: Item<T>[],    // The input dimensions, oftentimes the width and height of an image
   width: number,    // The width of the grid
   columns: number,  // The number of columns
   options?: Options // More options
@@ -31,6 +31,11 @@ getLayout<T>(
 type Layout<T> = {
   items: GridItem<T>[]
   height: number
+}
+
+type Item<T> = {
+  size: Size,
+  data: T
 }
 
 type GridItem<T> = {
