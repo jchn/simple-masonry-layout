@@ -1,7 +1,10 @@
 {
   "name": "@jchn/simple-masonry-layout",
-  "version": "0.0.0",
-  "description": "Calculating masonry layouts based on rectangles.",
+  "version": "0.1.0",
+  "description": "Creating masonry layouts based on rectangles.",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "source": "src/index.ts",
   "typings": "./dist/src/grid.d.ts",
