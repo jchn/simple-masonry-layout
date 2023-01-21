@@ -41,6 +41,7 @@ export type GridItem<T> = {
 export type Layout<T> = {
   items: GridItem<T>[];
   height: number;
+  width: number;
 };
 
 /**
@@ -201,6 +202,7 @@ export function getLayout<T>(
   const group = new MasonryColumnGroup<T>();
 
   const colWidth = widthSingleColumn(columns, width, gutterX);
+  let largestWidth = 0;
 
   for (let i = 0; i < columns; i++) {
     let x: number = i * colWidth + gutterX * i;
@@ -210,6 +212,10 @@ export function getLayout<T>(
       const numColsToShift = (columns - items.length) / 2;
 
       x += numColsToShift * colWidth;
+    }
+
+    if (x + colWidth > largestWidth) {
+      largestWidth = x + colWidth;
     }
 
     const col = new MasonryColumn<T>(x, colWidth, options);
@@ -225,6 +231,7 @@ export function getLayout<T>(
     return {
       items: group.items,
       height: group.longest?.height ?? 0,
+      width: largestWidth,
     };
   } else {
     let y = 0;
@@ -249,6 +256,7 @@ export function getLayout<T>(
     return {
       items: gridItems,
       height: group.longest?.height ?? 0,
+      width: largestWidth,
     };
   }
 }
