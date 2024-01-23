@@ -2,7 +2,6 @@ import Head from "next/head";
 import initDemo from "@jchn/simple-masonry-demo";
 import { useEffect, useRef } from "react";
 import CodeBlock from "../components/CodeBlock/index";
-import { getLayout } from "@jchn/simple-masonry-layout";
 
 function once<F extends (...args: any[]) => any>(fn: F): F {
   let hasRun = false;
