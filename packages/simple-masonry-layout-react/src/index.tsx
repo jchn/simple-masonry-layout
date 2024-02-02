@@ -14,18 +14,18 @@ type MasonryGridProps<T extends KeyHolder> =
   React.HTMLAttributes<HTMLDivElement> & {
     items: Item<T>[];
     width: number;
-    columns: number;
-    options: Options;
-    renderContent: (props: GridItem<T>) => ReactNode;
+    columns?: number;
+    options?: Options;
+    renderItem: (props: GridItem<T>) => ReactNode;
     divAttrs?: React.HTMLAttributes<HTMLDivElement>;
   };
 
 function MasonryGrid<T extends KeyHolder>({
   items,
   width,
-  columns,
+  columns = 3,
   options,
-  renderContent,
+  renderItem,
   ...divAttrs
 }: MasonryGridProps<T>) {
   const layout = getLayout(items, width, columns, options);
@@ -35,9 +35,7 @@ function MasonryGrid<T extends KeyHolder>({
   return (
     <div {...divAttrs} style={{ height: layout.height, ...divAttrs?.style }}>
       {gridItems.map((item) => (
-        <React.Fragment key={item.data.key}>
-          {renderContent(item)}
-        </React.Fragment>
+        <React.Fragment key={item.data.key}>{renderItem(item)}</React.Fragment>
       ))}
     </div>
   );
