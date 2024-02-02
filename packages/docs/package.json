@@ -11,7 +11,6 @@
   "dependencies": {
     "@jchn/simple-masonry-layout-react": "file:../simple-masonry-layout-react",
     "@jchn/simple-masonry-layout": "file:../simple-masonry-layout",
-    "@jchn/simple-masonry-demo": "file:../demo",
     "@tailwindcss/typography": "^0.5.8",
     "@types/node": "18.11.14",
     "@types/react": "18.0.26",

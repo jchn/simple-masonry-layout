@@ -1,37 +1,8 @@
 import Head from "next/head";
-import initDemo from "@jchn/simple-masonry-demo";
-import { useEffect, useRef } from "react";
 import CodeBlock from "../components/CodeBlock/index";
-
-function once<F extends (...args: any[]) => any>(fn: F): F {
-  let hasRun = false;
-  return ((...args) => {
-    if (hasRun) return;
-    hasRun = true;
-    return fn.apply(null, args);
-  }) as F;
-}
-
-const initDemoOnce = once(initDemo);
+import MasonryGridDemo from "../components/MasonryGridDemo";
 
 export default function Home() {
-  const someRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (someRef.current) {
-      initDemoOnce(
-        someRef.current,
-        Array.from({ length: 5 * 8 }).map(
-          (_, i) =>
-            new URL(
-              `static/${(i % 5) + 1}.webp`,
-              `${window.location.protocol}//${window.location.host}`
-            )
-        )
-      );
-    }
-  }, []);
-
   return (
     <div>
       <Head>
@@ -82,7 +53,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="col-span-1 max-w-100">
-                <div ref={someRef}></div>
+                <MasonryGridDemo />
               </div>
             </div>
           </div>

@@ -64,7 +64,7 @@ export default function ReactExample() {
             data: { url: image.url, key: image.id },
           }))}
           options={{ gutter: 5 }}
-          renderContent={({ data, rect }) => (
+          renderItem={({ data, rect }) => (
             <Link
               href={{
                 pathname: `reactExample/detail/${data.key}`,
