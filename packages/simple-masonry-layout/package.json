@@ -20,7 +20,7 @@
     "build": "npm-run-all --silent clean -p bundle -s",
     "dev": "microbundle watch",
     "typecheck": "tsc --noEmit",
-    "test": "ava",
+    "test": "NODE_OPTIONS='--loader=tsx --no-warnings' ava",
     "test:dev": "ava --watch",
     "clean": "rimraf dist",
     "release": "npm run -s build -s && npm t && git commit -am simple-masonry-layout/$npm_package_version && git tag simple-masonry-layout/$npm_package_version && git push && git push --tags && npm publish"
