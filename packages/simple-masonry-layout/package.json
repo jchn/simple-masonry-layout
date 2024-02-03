@@ -20,7 +20,7 @@
     "build": "npm-run-all --silent clean -p bundle -s",
     "dev": "microbundle watch",
     "typecheck": "tsc --noEmit",
-    "test": "NODE_OPTIONS='--loader=tsx --no-warnings' ava",
+    "test": "ava",
     "test:dev": "ava --watch",
     "clean": "rimraf dist",
     "release": "npm run -s build -s && npm t && git commit -am simple-masonry-layout/$npm_package_version && git tag simple-masonry-layout/$npm_package_version && git push && git push --tags && npm publish"
@@ -51,15 +51,16 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
+    "tsimp": "^2.0.10",
     "tsx": "^3.12.1",
-    "typescript": "^4.8.4"
+    "typescript": "^5.1.0"
   },
   "ava": {
     "extensions": {
       "ts": "module"
     },
     "nodeArguments": [
-      "--loader=tsx"
+      "--import=tsimp"
     ],
     "failFast": true
   }
