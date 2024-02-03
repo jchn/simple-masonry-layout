@@ -189,9 +189,9 @@ export function getLayout<T>(
   items: Item<T>[],
   width: number,
   columns: number,
-  options: Options
+  options: Options = {}
 ): Layout<T> {
-  if (options.collapsing === undefined) {
+  if (options?.collapsing === undefined) {
     options.collapsing = true;
   }
 

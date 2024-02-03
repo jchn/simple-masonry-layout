@@ -1,0 +1,43 @@
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-1000px);
+  }
+}
+
+.MasonryGridDemo {
+  height: 600px;
+  width: 600px;
+  position: relative;
+  perspective: 1600px;
+  margin: auto;
+  cursor: pointer;
+  overflow: hidden;
+
+  mask-image: linear-gradient(
+    0deg,
+    transparent 0,
+    black,
+    black,
+    transparent 100%
+  );
+}
+
+.MasonryGridDemo__scrollContainer {
+  width: 600px;
+  top: 0;
+  right: 200px;
+  animation: scroll 30s linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+.GridImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.8s;
+}

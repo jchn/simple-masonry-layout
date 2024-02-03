@@ -45,21 +45,22 @@
   },
   "homepage": "https://github.com/jchn/simple-masonry-layout#readme",
   "devDependencies": {
-    "@ava/typescript": "^3.0.1",
-    "ava": "^5.1.0",
+    "@ava/typescript": "^4.1.0",
+    "ava": "^6.1.1",
     "microbundle": "^0.15.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
+    "tsimp": "^2.0.10",
     "tsx": "^3.12.1",
-    "typescript": "^4.8.4"
+    "typescript": "^5.1.0"
   },
   "ava": {
     "extensions": {
       "ts": "module"
     },
     "nodeArguments": [
-      "--loader=tsx"
+      "--import=tsimp"
     ],
     "failFast": true
   }

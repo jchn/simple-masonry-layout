@@ -55,7 +55,7 @@ test("Max height should be configurable", (t) => {
   });
 
   t.true(
-    layout.items.every((i) => i.rect.height <= maxHeight),
+    layout.items.every((item) => item.rect.height <= maxHeight),
     "All items aren't any bigger than max height"
   );
 });
@@ -70,7 +70,7 @@ test("Collapsing should affect the grid", (t) => {
     });
   }
 
-  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+  const items: Item<null>[] = sizes.map((size) => ({ data: null, size }));
 
   const gridItems1 = getLayout(items, 800, 3, {
     collapsing: true,
@@ -95,7 +95,7 @@ test("Layout order should be maintained", (t) => {
   const layout = getLayout(items, 1000, 2, { gutter: 0, collapsing: false });
 
   t.deepEqual(
-    layout.items.map((i) => i.rect.height),
+    layout.items.map((item) => item.rect.height),
     [1, 2, 3]
   );
 });
@@ -123,12 +123,12 @@ test("The centering option should center the colums when there are less blocks t
 
   const sizes = expectedPattern.map(extractSize);
 
-  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+  const items: Item<null>[] = sizes.map((size) => ({ data: null, size }));
 
   const returnedPattern = getLayout(items, width, columns, {
     gutter,
     centering,
-  }).items.map((i) => i.rect);
+  }).items.map((item) => item.rect);
 
   t.deepEqual(expectedPattern, returnedPattern);
 });
@@ -144,7 +144,7 @@ test("PaddingY should add a fixed amount of height to each rectangle", (t) => {
     },
   ];
 
-  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+  const items: Item<null>[] = sizes.map((size) => ({ data: null, size }));
 
   const layout = getLayout(items, 800, 1, { paddingY: 200 });
 
@@ -165,7 +165,7 @@ test("Generating 1000 rectangles should take less time than 16ms", (t) => {
 
   const start = process.hrtime();
 
-  const items: Item<null>[] = sizes.map((s) => ({ data: null, size: s }));
+  const items: Item<null>[] = sizes.map((size) => ({ data: null, size }));
 
   const _ = getLayout(items, 800, 3, {});
 
